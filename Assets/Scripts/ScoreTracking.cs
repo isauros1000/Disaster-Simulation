@@ -26,6 +26,7 @@ public class ScoreTracking : MonoBehaviour
         CheckGameOver();
     }
     
+    //Checks if the player is touching the floor and decreases the score if it is
     void TouchingGround() 
     {
         // Create the Ray object that the raycast will do
@@ -38,10 +39,17 @@ public class ScoreTracking : MonoBehaviour
             }
         }
     }
+    // Loads the game over screne when we've reached a score of 0
     void CheckGameOver()
     {
         if(score <= 0) {
             SceneManager.LoadScene("GameOver");
         }
+    }
+
+    // Public method other scripts can access to increase the score
+    public void IncreaseScore(int amount)
+    {
+        score += amount;
     }
 }

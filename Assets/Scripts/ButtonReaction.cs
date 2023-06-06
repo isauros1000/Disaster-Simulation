@@ -1,23 +1,34 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
-public class ButtonReaction : MonoBehaviour
+
+public class ButtonReaction : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public GameObject waterhosePS;
+    public FireExtinguisher fireExtinguisherRef;
+    bool isPressed = false;
 
-    // Update is called once per frame
-    void Update()
+    public void Update()
     {
-        
+        // Continuously extinguish the fire while button is pressed
+        if (isPressed)
+        {
+            fireExtinguisherRef.Extinguish();
+        }
     }
-
-    public void hi(string message)
+    public void OnPointerDown(PointerEventData data)
     {
-        print(message);
+        // Start the particle system when button gets pressed
+        isPressed = true;
+        fireExtinguisherRef.ShowUp();
     }
+    public void OnPointerUp(PointerEventData data)
+    {
+        // Stop the particle system when button is released
+        isPressed = false;
+        fireExtinguisherRef.StopPlaying();
+    }
+    
 }
